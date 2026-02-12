@@ -3,85 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artisan Alliance</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        .hero {
-            background: url('https://img1.wsimg.com/isteam/getty/166145172/:/cr=t:12.53%25,l:0%25,w:100%25,h:74.94%25/rs=w:600,h:300,cg:true') no-repeat center center/cover;
-            height: 300px;
-            text-align: center;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero h1 {
-            font-size: 3em;
-        }
-        .mission {
-            padding: 20px;
-            text-align: center;
-        }
-        .contact {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background-color: #333;
-            color: #fff;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <title>Artisan Alliance | Premium Furniture Manufacturing & Export</title>
+    <meta name="description" content="Artisan Alliance - Premium furniture manufacturing and export from Jodhpur, India. Crafting excellence for worldwide clientele.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
-<body>
+<body class="bg-stone-50 text-stone-800 overflow-x-hidden">
 
-<header>
-    <h1>Artisan Alliance</h1>
-</header>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 ease-in-out py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-amber-800 rounded-sm flex items-center justify-center">
+                    <span class="text-stone-100 font-serif text-xl font-bold">A</span>
+                </div>
+                <span class="text-2xl font-serif tracking-wide text-stone-800 font-semibold">Artisan Alliance</span>
+            </div>
+            
+            <a href="#contact" class="hidden md:inline-flex items-center px-8 py-3 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                Contact Us
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-stone-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-100 absolute w-full border-t border-stone-200">
+            <div class="container mx-auto px-6 py-4">
+                <a href="#contact" class="block py-3 text-stone-800 font-medium hover:text-amber-900 transition-colors">Contact Us</a>
+            </div>
+        </div>
+    </nav>
 
-<div class="container">
-    <div class="hero">
-        <h1>Crafting Quality Furniture Solutions</h1>
-    </div>
-    
-    <div class="mission">
-        <h2>Our Mission</h2>
-        <p>At Artisan Alliance, we are dedicated to crafting high-quality furniture that merges tradition with innovation. Our mission is to create pieces that not only enhance spaces but also tell a story of craftsmanship and sustainability.</p>
-    </div>
-    
-    <div class="contact">
-        <h2>Contact Us</h2>
-        <p>G-134-135 III Phase, Boranada Industrial Area, Jodhpur, RJ India</p>
-        <p>Phone: +91-9829024724</p>
-        <p>Email: <a href="mailto:artisanjdh@gmail.com" style="color: #fff;">artisanjdh@gmail.com</a></p>
-    </div>
-</div>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/70 z-10"></div>
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&q=80" 
+                 alt="Premium wooden furniture craftsmanship" 
+                 class="w-full h-full object-cover scale-105 animate-slow-zoom">
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-20 container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto space-y-8 opacity-0 translate-y-10 animate-fade-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+                <p class="text-amber-400 font-medium tracking-[0.3em] uppercase text-sm md:text-base">Est. 1995 • Jodhpur, India</p>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-stone-100 leading-tight">
+                    Crafting <em class="italic text-amber-400">Timeless</em><br>
+                    Woodwork
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-stone-200 font-light max-w-2xl mx-auto leading-relaxed">
+                    Premium furniture manufacturing and export, bringing Indian craftsmanship to the world stage.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+                    <a href="#contact" class="inline-flex items-center justify-center px-10 py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                        Get In Touch
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="#about" class="inline-flex items-center justify-center px-10 py-4 border-2 border-stone-300 text-stone-100 font-medium rounded-sm hover:bg-stone-100 hover:text-stone-900 transition-all duration-300">
+                        Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <svg class="w-6 h-6 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
 
-<footer>
-    <p>&copy; 2026 Artisan Alliance - All Rights Reserved.</p>
-</footer>
+    <!-- About Section -->
+    <section id="about" class="py-24 md:py-32 bg-stone-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6 reveal-on-scroll">
+                    <span class="text-amber-900 font-medium tracking-widest uppercase text-sm">Our Heritage</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-stone-900 leading-tight">
+                        Three Decades of <em class="italic text-amber-800">Excellence</em>
+                    </h2>
+                    <p class="text-lg text-stone-600 leading-relaxed">
+                        Located in the heart of Jodhpur's renowned furniture district, Artisan Alliance has been crafting exceptional wooden furniture for discerning clients worldwide. Our commitment to quality, sustainable sourcing, and traditional techniques sets us apart.
+                    </p>
+                    <p class="text-lg text-stone-600 leading-relaxed">
+                        From contemporary designs to classic reproductions, we transform raw timber into functional art that graces homes, hotels, and commercial spaces across the globe.
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-8 pt-6 border-t border-stone-200">
+                        <div>
+                            <span class="block text-3xl font-serif text-amber-900">30+</span>
+                            <span class="text-sm text-stone-500 uppercase tracking-wider">Years</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-amber-900">50+</span>
+                            <span class="text-sm text-stone-500 uppercase tracking-wider">Countries</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-amber-900">100%</span>
+                            <span class="text-sm text-stone-500 uppercase tracking-wider">Export</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal-on-scroll">
+                    <div class="absolute -inset-4 bg-amber-900/10 rounded-sm transform rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1611486212557-88be5ff6f941?w=800&q=80" 
+                         alt="Woodworking craftsmanship" 
+                         class="relative rounded-sm shadow-2xl w-full h-[600px] object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Services/Features Section -->
+    <section class="py-24 bg-stone-900 text-stone-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-amber-400 font-medium tracking-widest uppercase text-sm">What We Do</span>
+                <h2 class="text-4xl md:text-5xl font-serif mt-4">Our Expertise</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group p-8 border border-stone-700 rounded-sm hover:border-amber-700 transition-all duration-300 hover:bg-stone-800 reveal-on-scroll">
+                    <div class="w-16 h-16 bg-amber-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-4">Custom Manufacturing</h3>
+                    <p class="text-stone-400 leading-relaxed">Bespoke furniture production tailored to your specifications, from concept to completion.</p>
+                </div>
+                
+                <div class="group p-8 border border-stone-700 rounded-sm hover:border-amber-700 transition-all duration-300 hover:bg-stone-800 reveal-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-amber-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-4">Global Export</h3>
+                    <p class="text-stone-400 leading-relaxed">Seamless worldwide shipping and logistics, delivering to over 50 countries with care.</p>
+                </div>
+                
+                <div class="group p-8 border border-stone-700 rounded-sm hover:border-amber-700 transition-all duration-300 hover:bg-stone-800 reveal-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-amber-900/30 rounded-full flex items-center justify-center mb-6 group-hover:bg-amber-900/50 transition-colors">
+                        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-4">Quality Assurance</h3>
+                    <p class="text-stone-400 leading-relaxed">Rigorous quality control and sustainable sourcing, ensuring every piece meets global standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 md:py-32 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-amber-900 font-medium tracking-widest uppercase text-sm">Get In Touch</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-stone-900 mt-4">Contact Us</h2>
+                <p class="text-stone-600 mt-4 max-w-2xl mx-auto">Ready to discuss your furniture requirements? Reach out to us for inquiries, quotes, or partnership opportunities.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8 reveal-on-scroll">
+                    <div class="bg-white p-8 rounded-sm shadow-lg border-l-4 border-amber-900">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-stone-900 mb-2">Visit Our Factory</h3>
+                                <p class="text-stone-600 leading-relaxed">
+                                    G-134-135 III Phase,<br>
+                                    Boranada Industrial Area,<br>
+                                    Jodhpur, Rajasthan, India
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-sm shadow-lg border-l-4 border-amber-900">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-stone-900 mb-2">Email Us</h3>
+                                <a href="mailto:arvind@artisanalliance.in" class="text-amber-900 hover:text-amber-700 font-medium transition-colors text-lg">
+                                    arvind@artisanalliance.in
+                                </a>
+                                <p class="text-stone-500 text-sm mt-1">We typically respond within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-sm shadow-lg border-l-4 border-amber-900">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-stone-900 mb-2">Business Hours</h3>
+                                <p class="text-stone-600">
+                                    Monday - Saturday<br>
+                                    9:00 AM - 6:00 PM IST
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="h-[500px] lg:h-auto rounded-sm shadow-2xl overflow-hidden reveal-on-scroll">
+                    <div id="map" class="w-full h-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-amber-900 rounded-sm flex items-center justify-center">
+                        <span class="text-stone-100 font-serif text-sm font-bold">A</span>
+                    </div>
+                    <span class="text-xl font-serif text-stone-100">Artisan Alliance</span>
+                </div>
+                
+                <div class="text-sm">
+                    © 2026 Artisan Alliance. All rights reserved.
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="mailto:arvind@artisanalliance.in" class="hover:text-amber-400 transition-colors">
+                        <span class="sr-only">Email</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet Map JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
