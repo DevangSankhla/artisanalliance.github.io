@@ -1,0 +1,135 @@
+/* Custom Animations */
+@keyframes slow-zoom {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1.05); }
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slow-zoom {
+    animation: slow-zoom 20s ease-in-out infinite;
+}
+
+.animate-fade-up {
+    animation: fade-up 1s ease-out forwards;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f4;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #92400e;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #78350f;
+}
+
+/* Navigation Transition */
+.nav-scrolled {
+    background-color: rgba(245, 245, 244, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.nav-scrolled .text-stone-800 {
+    color: #1c1917 !important;
+}
+
+.nav-scrolled .text-stone-100 {
+    color: #1c1917 !important;
+}
+
+/* Reveal on Scroll Animation */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Map Customization */
+.leaflet-popup-content-wrapper {
+    border-radius: 4px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-popup-content {
+    margin: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    color: #44403c;
+}
+
+/* Selection Color */
+::selection {
+    background-color: #92400e;
+    color: #fafaf9;
+}
+
+/* Focus Styles */
+a:focus-visible, button:focus-visible {
+    outline: 2px solid #92400e;
+    outline-offset: 2px;
+}
+
+/* Typography Enhancements */
+.font-serif {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Image Hover Effects */
+.group:hover img {
+    transform: scale(1.02);
+}
+
+img {
+    transition: transform 0.6s ease;
+}
+
+/* Button Hover Enhancement */
+button, a {
+    transition: all 0.3s ease;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .animate-slow-zoom {
+        animation: none;
+    }
+    
+    h1 {
+        font-size: 2.5rem !important;
+    }
+}
