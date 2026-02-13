@@ -66,51 +66,115 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/40 to-stone-900/70 z-10"></div>
-            <img src="assets/table.jpg" 
-                 alt="Elegant wooden dining table craftsmanship" 
-                 class="w-full h-full object-cover scale-105 animate-slow-zoom">
-        </div>
-        
-        <!-- Content -->
-        <div class="relative z-20 container mx-auto px-6 text-center">
-            <div class="max-w-4xl mx-auto space-y-8 opacity-0 translate-y-10 animate-fade-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
-                <p class="text-amber-400 font-medium tracking-[0.3em] uppercase text-sm md:text-base">Est. 1998 • Jodhpur, India</p>
-                
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-stone-100 leading-tight">
-                    Crafting <em class="italic text-amber-400">Timeless</em><br>
-                    Woodwork
-                </h1>
-                
-                <p class="text-xl md:text-2xl text-stone-200 font-light max-w-2xl mx-auto leading-relaxed">
-                    Premium furniture manufacturing and export, bringing Indian craftsmanship to the world stage.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                    <a href="#contact" class="inline-flex items-center justify-center px-10 py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-                        Get In Touch
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                    <a href="#about" class="inline-flex items-center justify-center px-10 py-4 border-2 border-stone-300 text-stone-100 font-medium rounded-sm hover:bg-stone-100 hover:text-stone-900 transition-all duration-300">
-                        Our Story
-                    </a>
+   <!-- Hero Gallery Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-stone-900">
+    <!-- Auto-Scrolling Gallery Background -->
+    <div class="absolute inset-0 z-0">
+        <div class="gallery-slider">
+            <div class="gallery-track" id="galleryTrack">
+                <!-- First set of 10 images -->
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-01.jpg" alt="Artisan Alliance Furniture 1" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-02.jpg" alt="Artisan Alliance Furniture 2" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-03.jpg" alt="Artisan Alliance Furniture 3" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-04.jpg" alt="Artisan Alliance Furniture 4" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-05.jpg" alt="Artisan Alliance Furniture 5" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-06.jpg" alt="Artisan Alliance Furniture 6" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-07.jpg" alt="Artisan Alliance Furniture 7" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-08.jpg" alt="Artisan Alliance Furniture 8" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-09.jpg" alt="Artisan Alliance Furniture 9" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-10.jpg" alt="Artisan Alliance Furniture 10" class="w-full h-full object-cover">
+                </div>
+                <!-- Duplicate set for seamless infinite scroll -->
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-01.jpg" alt="Artisan Alliance Furniture 1" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-02.jpg" alt="Artisan Alliance Furniture 2" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-03.jpg" alt="Artisan Alliance Furniture 3" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-04.jpg" alt="Artisan Alliance Furniture 4" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-05.jpg" alt="Artisan Alliance Furniture 5" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-06.jpg" alt="Artisan Alliance Furniture 6" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-07.jpg" alt="Artisan Alliance Furniture 7" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-08.jpg" alt="Artisan Alliance Furniture 8" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-09.jpg" alt="Artisan Alliance Furniture 9" class="w-full h-full object-cover">
+                </div>
+                <div class="gallery-slide">
+                    <img src="assets/gallery/image-10.jpg" alt="Artisan Alliance Furniture 10" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-            <svg class="w-6 h-6 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
+        <!-- Dark overlay for text readability -->
+        <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80 z-10"></div>
+    </div>
+    
+    <!-- Content (same as before) -->
+    <div class="relative z-20 container mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <p class="text-amber-400 font-medium tracking-[0.3em] uppercase text-sm md:text-base animate-fade-up">Est. 1995 • Jodhpur, India</p>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-stone-100 leading-tight animate-fade-up" style="animation-delay: 0.2s;">
+                Crafting <em class="italic text-amber-400">Timeless</em><br>
+                Woodwork
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-stone-200 font-light max-w-2xl mx-auto leading-relaxed animate-fade-up" style="animation-delay: 0.4s;">
+                Premium furniture manufacturing and export, bringing Indian craftsmanship to the world stage.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8 animate-fade-up" style="animation-delay: 0.6s;">
+                <a href="#contact" class="inline-flex items-center justify-center px-10 py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    Get In Touch
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="#about" class="inline-flex items-center justify-center px-10 py-4 border-2 border-stone-300 text-stone-100 font-medium rounded-sm hover:bg-stone-100 hover:text-stone-900 transition-all duration-300">
+                    Our Story
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+        <svg class="w-6 h-6 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
 
     <!-- About Section -->
     <section id="about" class="py-24 md:py-32 bg-stone-50">
