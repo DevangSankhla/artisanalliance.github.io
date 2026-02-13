@@ -133,3 +133,77 @@ button, a {
         font-size: 2.5rem !important;
     }
 }
+
+/* Gallery Slider Styles */
+.gallery-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.gallery-track {
+    display: flex;
+    width: calc(100% * 20); /* 10 images × 2 (duplicated) = 20 */
+    height: 100%;
+    animation: scroll-gallery 50s linear infinite;
+}
+
+.gallery-slide {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Smooth infinite scroll animation */
+@keyframes scroll-gallery {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Move half the total width (one set of 10 images) */
+    }
+}
+
+/* Pause on hover */
+.gallery-slider:hover .gallery-track {
+    animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .gallery-track {
+        animation-duration: 35s; /* Faster on mobile */
+    }
+    
+    .gallery-slide {
+        width: 100vw;
+    }
+}
+
+/* Gallery overlay enhancement */
+.gallery-slider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(28, 25, 23, 0.4) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba(28, 25, 23, 0.4) 100%
+    );
+    pointer-events: none;
+    z-index: 5;
+}
