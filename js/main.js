@@ -153,3 +153,33 @@ const handleFormSubmit = (e) => {
     // Add form submission logic here
     console.log('Form submitted');
 };
+
+// Gallery Auto-Scroll Enhancement
+document.addEventListener('DOMContentLoaded', () => {
+    const galleryTrack = document.getElementById('galleryTrack');
+    
+    if (galleryTrack) {
+        // Smooth scroll behavior
+        let isHovered = false;
+        const gallerySlider = document.querySelector('.gallery-slider');
+        
+        gallerySlider.addEventListener('mouseenter', () => {
+            isHovered = true;
+            galleryTrack.style.animationPlayState = 'paused';
+        });
+        
+        gallerySlider.addEventListener('mouseleave', () => {
+            isHovered = false;
+            galleryTrack.style.animationPlayState = 'running';
+        });
+        
+        // Optional: Add click to pause/play functionality
+        gallerySlider.addEventListener('click', () => {
+            if (galleryTrack.style.animationPlayState === 'paused') {
+                galleryTrack.style.animationPlayState = 'running';
+            } else {
+                galleryTrack.style.animationPlayState = 'paused';
+            }
+        });
+    }
+});
