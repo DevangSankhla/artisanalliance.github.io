@@ -71,7 +71,7 @@ updateUI() {
         uploadBtn.classList.add('hidden');
         authBar.classList.add('hidden');
     }
-}
+},
 
     // Login
     async login() {
