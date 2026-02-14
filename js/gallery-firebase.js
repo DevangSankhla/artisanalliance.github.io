@@ -70,15 +70,19 @@ const galleryApp = {
             // Show Create Gallery if no galleries, else show Upload
             if (this.galleries.length === 0) {
                 createGalleryBtn.classList.remove('hidden');
+                createGalleryBtn.style.display = 'inline-flex';
                 uploadBtn.classList.add('hidden');
             } else {
                 createGalleryBtn.classList.add('hidden');
                 uploadBtn.classList.remove('hidden');
+                uploadBtn.style.display = 'inline-flex';
             }
         } else {
             loginBtn.classList.remove('hidden');
             createGalleryBtn.classList.add('hidden');
+            createGalleryBtn.style.display = 'none';
             uploadBtn.classList.add('hidden');
+            uploadBtn.style.display = 'none';
             authBar.classList.add('hidden');
         }
     },
