@@ -191,7 +191,7 @@ showUploadModal() {
     
     this.populateGallerySelect();
     this.openModal('upload-modal');
-}
+},
     // Populate gallery select dropdown
     populateGallerySelect() {
         const select = document.getElementById('upload-gallery-select');
