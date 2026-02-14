@@ -30,8 +30,9 @@ const galleryApp = {
     init() {
         this.setupAuthListener();
         this.setupEventListeners();
+    },
 showCreateModal() {
-    const modal = document.getElementById('createGalleryModal');
+    const modal = document.getElementById('create-modal');
     if (modal) {
         modal.style.display = 'flex';
         modal.classList.add('active');
@@ -47,7 +48,8 @@ closeCreateModal() {
         modal.style.display = 'none';
         modal.classList.remove('active');
         document.body.style.overflow = '';
-    },
+    }
+},
 
     // Auth State Listener
     setupAuthListener() {
