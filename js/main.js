@@ -77,60 +77,6 @@ document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
     observer.observe(el);
 });
 
-// Initialize Leaflet Map
-document.addEventListener('DOMContentLoaded', () => {
-    // Coordinates for Boranada Industrial Area, Jodhpur
-    const lat = 26.2389;
-    const lng = 73.0243;
-    
-    const map = L.map('map', {
-        scrollWheelZoom: false,
-        zoomControl: true
-    }).setView([lat, lng], 15);
-    
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19
-    }).addTo(map);
-    
-    // Custom icon
-    const customIcon = L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="background-color: #92400e; width: 30px; height: 30px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-               </div>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 30]
-    });
-    
-    // Add marker
-    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-    
-    // Add popup
-    marker.bindPopup(`
-        <div style="text-align: center; min-width: 200px;">
-            <h3 style="margin: 0 0 8px 0; color: #92400e; font-family: serif; font-size: 1.2rem; font-weight: 600;">Artisan Alliance</h3>
-            <p style="margin: 0; color: #57534e; font-size: 0.9rem; line-height: 1.4;">
-                G-134-135 III Phase<br>
-                Boranada Industrial Area<br>
-                Jodhpur, Rajasthan
-            </p>
-        </div>
-    `).openPopup();
-    
-    // Smooth zoom animation on load
-    setTimeout(() => {
-        map.flyTo([lat, lng], 16, {
-            duration: 2,
-            easeLinearity: 0.25
-        });
-    }, 1000);
-});
-
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
