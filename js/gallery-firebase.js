@@ -30,6 +30,23 @@ const galleryApp = {
     init() {
         this.setupAuthListener();
         this.setupEventListeners();
+showCreateModal() {
+    const modal = document.getElementById('createGalleryModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error('Create gallery modal not found');
+    }
+},
+
+closeCreateModal() {
+    const modal = document.getElementById('createGalleryModal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
     },
 
     // Auth State Listener
