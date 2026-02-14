@@ -46,7 +46,7 @@ const galleryApp = {
         });
     },
 
-    // Update UI based on auth state
+   // Update UI based on auth state
 updateUI() {
     const loginBtn = document.getElementById('login-btn');
     const createGalleryBtn = document.getElementById('create-gallery-btn');
@@ -60,15 +60,15 @@ updateUI() {
         // Show Create Gallery if no galleries, else show Upload
         if (this.galleries.length === 0) {
             createGalleryBtn.classList.remove('hidden');
-            if (uploadBtn) uploadBtn.classList.add('hidden');
+            uploadBtn.classList.add('hidden');
         } else {
             createGalleryBtn.classList.add('hidden');
-            if (uploadBtn) uploadBtn.classList.remove('hidden');
+            uploadBtn.classList.remove('hidden');
         }
     } else {
         loginBtn.classList.remove('hidden');
-        if (createGalleryBtn) createGalleryBtn.classList.add('hidden');
-        if (uploadBtn) uploadBtn.classList.add('hidden');
+        createGalleryBtn.classList.add('hidden');
+        uploadBtn.classList.add('hidden');
         authBar.classList.add('hidden');
     }
 }
@@ -116,6 +116,7 @@ updateUI() {
             }));
             
             this.renderGalleries();
+            this.updateUI();
         } catch (error) {
             console.error('Error loading galleries:', error);
             alert('Error loading galleries. Please try again.');
@@ -176,16 +177,21 @@ updateUI() {
     },
 
     // Show upload modal
-    showUploadModal() {
-        if (!this.currentUser) {
-            this.showLoginModal();
-            return;
-        }
-        
-        this.populateGallerySelect();
-        this.openModal('upload-modal');
-    },
-
+showUploadModal() {
+    if (!this.currentUser) {
+        this.showLoginModal();
+        return;
+    }
+    
+    // If no galleries, show create modal instead
+    if (this.galleries.length === 0) {
+        this.showCreateModal();
+        return;
+    }
+    
+    this.populateGallerySelect();
+    this.openModal('upload-modal');
+}
     // Populate gallery select dropdown
     populateGallerySelect() {
         const select = document.getElementById('upload-gallery-select');
