@@ -47,21 +47,31 @@ const galleryApp = {
     },
 
     // Update UI based on auth state
-    updateUI() {
-        const loginBtn = document.getElementById('login-btn');
-        const uploadBtn = document.getElementById('upload-btn');
-        const authBar = document.getElementById('auth-bar');
+updateUI() {
+    const loginBtn = document.getElementById('login-btn');
+    const createGalleryBtn = document.getElementById('create-gallery-btn');
+    const uploadBtn = document.getElementById('upload-btn');
+    const authBar = document.getElementById('auth-bar');
+    
+    if (this.currentUser) {
+        loginBtn.classList.add('hidden');
+        authBar.classList.remove('hidden');
         
-        if (this.currentUser) {
-            loginBtn.classList.add('hidden');
-            uploadBtn.classList.remove('hidden');
-            authBar.classList.remove('hidden');
+        // Show Create Gallery if no galleries, else show Upload
+        if (this.galleries.length === 0) {
+            createGalleryBtn.classList.remove('hidden');
+            if (uploadBtn) uploadBtn.classList.add('hidden');
         } else {
-            loginBtn.classList.remove('hidden');
-            uploadBtn.classList.add('hidden');
-            authBar.classList.add('hidden');
+            createGalleryBtn.classList.add('hidden');
+            if (uploadBtn) uploadBtn.classList.remove('hidden');
         }
-    },
+    } else {
+        loginBtn.classList.remove('hidden');
+        if (createGalleryBtn) createGalleryBtn.classList.add('hidden');
+        if (uploadBtn) uploadBtn.classList.add('hidden');
+        authBar.classList.add('hidden');
+    }
+}
 
     // Login
     async login() {
