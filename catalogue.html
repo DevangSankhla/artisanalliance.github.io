@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>Catalogue | Artisan Alliance</title>
+    <meta name="description" content="Request or view our exclusive furniture catalogue.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <meta name="theme-color" content="#92400e">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/catalogue.css">
+</head>
+<body class="bg-stone-50 text-stone-800">
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 ease-in-out py-3 md:py-4 bg-stone-50/95 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 md:space-x-3">
+                <img src="assets/logo.png" alt="Artisan Alliance Logo" class="h-8 md:h-12 w-auto object-contain" loading="eager">
+                <span class="text-lg md:text-2xl font-serif tracking-wide text-stone-800 font-semibold">Artisan Alliance</span>
+            </a>
+            
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="about.html" class="hidden md:inline-flex items-center px-4 md:px-6 py-2 md:py-2.5 text-stone-800 font-medium hover:text-amber-900 transition-colors">
+                    About
+                </a>
+                <a href="catalogue.html" class="hidden md:inline-flex items-center px-4 md:px-6 py-2 md:py-2.5 text-amber-900 font-medium border-b-2 border-amber-900">
+                    Catalogue
+                </a>
+                <a href="gallery.html" class="hidden md:inline-flex items-center px-4 md:px-6 py-2 md:py-2.5 text-stone-800 font-medium hover:text-amber-900 transition-colors">
+                    Gallery
+                </a>
+                <a href="index.html#contact" class="hidden md:inline-flex items-center px-4 md:px-6 py-2 md:py-2.5 bg-amber-900 text-stone-100 text-sm font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    Contact Us
+                </a>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-stone-800 focus:outline-none p-2 touch-target" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-100 absolute w-full border-t border-stone-200">
+            <div class="container mx-auto px-4 md:px-6 py-4">
+                <a href="index.html" class="block py-3 text-stone-800 font-medium hover:text-amber-900 transition-colors">Home</a>
+                <a href="about.html" class="block py-3 text-stone-800 font-medium hover:text-amber-900 transition-colors">About</a>
+                <a href="gallery.html" class="block py-3 text-stone-800 font-medium hover:text-amber-900 transition-colors">Gallery</a>
+                <a href="catalogue.html" class="block py-3 text-amber-900 font-medium">Catalogue</a>
+                <a href="index.html#contact" class="block py-3 text-stone-800 font-medium hover:text-amber-900 transition-colors">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-20 md:pt-24 pb-6 md:pb-12 bg-stone-900 text-stone-100">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-6xl font-serif mb-3 md:mb-4">Our Catalogue</h1>
+            <p class="text-stone-400 text-sm md:text-lg max-w-2xl mx-auto">Access our exclusive furniture collections or request a personalised catalogue</p>
+        </div>
+    </section>
+
+    <!-- Options Section -->
+    <section id="options-section" class="py-12 md:py-20 bg-stone-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+                
+                <!-- Option 1: Password Login -->
+                <div class="bg-white p-6 md:p-10 rounded-sm shadow-lg border border-stone-200 hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-amber-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-serif text-stone-900 mb-3">View Catalogue</h2>
+                    <p class="text-stone-600 mb-6 leading-relaxed">Already have access? Enter your password to browse our complete furniture catalogue with detailed specifications and pricing.</p>
+                    <button onclick="catalogueApp.showPasswordModal()" class="w-full py-3 md:py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-[1.02] shadow-lg touch-target">
+                        Access Catalogue
+                    </button>
+                </div>
+
+                <!-- Option 2: Request Catalogue -->
+                <div class="bg-white p-6 md:p-10 rounded-sm shadow-lg border border-stone-200 hover:shadow-xl transition-shadow">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-stone-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-8 md:h-8 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-serif text-stone-900 mb-3">Request Catalogue</h2>
+                    <p class="text-stone-600 mb-6 leading-relaxed">New to Artisan Alliance? Fill out our request form and we'll send you our latest catalogue directly to your inbox.</p>
+                    <button onclick="catalogueApp.showRequestForm()" class="w-full py-3 md:py-4 bg-stone-800 text-stone-100 font-medium rounded-sm hover:bg-stone-700 transition-all duration-300 transform hover:scale-[1.02] shadow-lg touch-target">
+                        Request Access
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalogue Content (Hidden by default) -->
+    <section id="catalogue-content" class="py-12 md:py-20 bg-stone-50 hidden">
+        <div class="container mx-auto px-4 md:px-6">
+            <!-- Logged in status bar -->
+            <div class="bg-amber-50 border border-amber-200 rounded-sm p-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-amber-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-amber-900 font-medium">Logged in to Catalogue</span>
+                </div>
+                <button onclick="catalogueApp.logout()" class="text-amber-900 hover:text-amber-700 font-medium text-sm">
+                    Logout
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div class="text-center py-16 md:py-24 bg-white rounded-sm shadow-lg border border-stone-200">
+                <div class="w-20 h-20 md:w-24 md:h-24 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 md:w-12 md:h-12 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif text-stone-900 mb-3">Catalogue Coming Soon</h2>
+                <p class="text-stone-600 max-w-md mx-auto mb-6">Our digital catalogue is currently being updated with our latest collections. Please check back soon or contact us for immediate assistance.</p>
+                <a href="index.html#contact" class="inline-flex items-center px-6 py-3 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300">
+                    Contact Us
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Form Section (Hidden by default) -->
+    <section id="request-form-section" class="py-12 md:py-20 bg-stone-50 hidden">
+        <div class="container mx-auto px-4 md:px-6 max-w-2xl">
+            <div class="bg-white p-6 md:p-10 rounded-sm shadow-lg border border-stone-200">
+                <button onclick="catalogueApp.showOptions()" class="flex items-center text-stone-500 hover:text-stone-800 transition-colors mb-6">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Options
+                </button>
+
+                <h2 class="text-2xl md:text-3xl font-serif text-stone-900 mb-2">Request Catalogue</h2>
+                <p class="text-stone-600 mb-8">Fill in your details below and we'll send our catalogue to your email.</p>
+
+                <form id="catalogue-request-form" action="https://formspree.io/f/xnqevwje" method="POST" class="space-y-6">
+                    <!-- Name -->
+                    <div>
+                        <label for="user-name" class="block text-sm font-medium text-stone-700 mb-2">Your Name *</label>
+                        <input type="text" id="user-name" name="name" required 
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm focus:outline-none focus:border-amber-900 transition-colors"
+                            placeholder="John Smith">
+                    </div>
+
+                    <!-- Firm Name -->
+                    <div>
+                        <label for="firm-name" class="block text-sm font-medium text-stone-700 mb-2">Firm/Company Name *</label>
+                        <input type="text" id="firm-name" name="firm" required 
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm focus:outline-none focus:border-amber-900 transition-colors"
+                            placeholder="ABC Furniture Imports Ltd.">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="user-email" class="block text-sm font-medium text-stone-700 mb-2">Email Address *</label>
+                        <input type="email" id="user-email" name="email" required 
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm focus:outline-none focus:border-amber-900 transition-colors"
+                            placeholder="john@abcfurniture.com">
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label for="user-message" class="block text-sm font-medium text-stone-700 mb-2">Message</label>
+                        <textarea id="user-message" name="message" rows="4" 
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm focus:outline-none focus:border-amber-900 transition-colors resize-none"
+                            placeholder="Tell us about your requirements, preferred furniture styles, or any questions you may have..."></textarea>
+                    </div>
+
+                    <!-- Hidden field for recipient -->
+                    <input type="hidden" name="_subject" value="New Catalogue Request - Artisan Alliance">
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-3 md:py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-[1.02] shadow-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        Send Request
+                    </button>
+
+                    <p class="text-stone-500 text-sm text-center">Your information will be sent to <span class="text-amber-900">arvind@artisanalliance.in</span></p>
+                </form>
+
+                <!-- Success Message (Hidden by default) -->
+                <div id="form-success" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-serif text-stone-900 mb-2">Request Sent Successfully!</h3>
+                    <p class="text-stone-600 mb-6">Thank you for your interest. We'll send our catalogue to your email shortly.</p>
+                    <button onclick="catalogueApp.showOptions()" class="px-6 py-3 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300">
+                        Back to Catalogue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="fixed inset-0 bg-stone-900/80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-sm shadow-2xl max-w-md w-full p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl md:text-2xl font-serif text-stone-900">Access Catalogue</h3>
+                <button onclick="catalogueApp.closeModal('password-modal')" class="text-stone-400 hover:text-stone-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <p class="text-stone-600 text-sm">Please enter the catalogue access password provided to you.</p>
+                
+                <div>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Password</label>
+                    <input type="password" id="catalogue-password" 
+                        class="w-full px-4 py-3 border border-stone-300 rounded-sm focus:outline-none focus:border-amber-900"
+                        placeholder="Enter password">
+                </div>
+                
+                <div id="password-error" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-sm text-sm">
+                    Incorrect password. Please try again.
+                </div>
+                
+                <button onclick="catalogueApp.verifyPassword()" class="w-full py-3 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300">
+                    Login
+                </button>
+
+                <p class="text-center text-sm text-stone-500">
+                    Don't have a password? 
+                    <button onclick="catalogueApp.closeModal('password-modal'); catalogueApp.showRequestForm();" class="text-amber-900 hover:underline font-medium">
+                        Request Access
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-8 md:py-12 border-t border-stone-800">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-3">
+                    <img src="assets/logo.png" alt="Artisan Alliance Logo" class="h-8 md:h-10 w-auto object-contain brightness-0 invert" loading="lazy">
+                    <span class="text-lg md:text-xl font-serif text-stone-100">Artisan Alliance</span>
+                </div>
+                
+                <div class="text-xs md:text-sm text-center">
+                    © 2026 Artisan Alliance. All rights reserved.
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="mailto:arvind@artisanalliance.in" class="hover:text-amber-400 transition-colors" aria-label="Email">
+                        <span class="sr-only">Email</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/artisanalliance.in" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors" aria-label="Instagram">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Scripts -->
+    <script src="js/catalogue.js"></script>
+</body>
+</html>

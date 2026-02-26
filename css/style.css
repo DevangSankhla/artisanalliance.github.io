@@ -16,12 +16,38 @@
     }
 }
 
+@keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
 .animate-slow-zoom {
     animation: slow-zoom 20s ease-in-out infinite;
 }
 
 .animate-fade-up {
     animation: fade-up 1s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Smooth Scrolling */
@@ -47,13 +73,21 @@ html {
     background: #78350f;
 }
 
+/* Mobile scrollbar */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+}
+
 /* Navigation Transition */
 .nav-scrolled {
-    background-color: rgba(245, 245, 244, 0.95);
+    background-color: rgba(245, 245, 244, 0.98);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
 }
 
 .nav-scrolled .text-stone-800 {
@@ -68,7 +102,8 @@ html {
 .reveal-on-scroll {
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
 }
 
 .reveal-on-scroll.revealed {
@@ -94,10 +129,11 @@ html {
     color: #fafaf9;
 }
 
-/* Focus Styles */
-a:focus-visible, button:focus-visible {
-    outline: 2px solid #92400e;
-    outline-offset: 2px;
+/* Focus Styles - Enhanced for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 3px solid #92400e;
+    outline-offset: 3px;
+    border-radius: 2px;
 }
 
 /* Typography Enhancements */
@@ -107,6 +143,9 @@ a:focus-visible, button:focus-visible {
 
 body {
     font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Image Hover Effects */
@@ -123,6 +162,20 @@ button, a {
     transition: all 0.3s ease;
 }
 
+/* Touch Target Optimization */
+@media (max-width: 768px) {
+    .touch-target {
+        min-height: 48px;
+        min-width: 48px;
+    }
+    
+    /* Prevent text size adjustment on orientation change */
+    html {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+}
+
 /* Mobile Optimization */
 @media (max-width: 768px) {
     .animate-slow-zoom {
@@ -130,7 +183,17 @@ button, a {
     }
     
     h1 {
-        font-size: 2.5rem !important;
+        font-size: 2.25rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Improve tap highlight on mobile */
+    a, button {
+        -webkit-tap-highlight-color: rgba(146, 64, 14, 0.2);
     }
 }
 
@@ -144,9 +207,10 @@ button, a {
 
 .gallery-track {
     display: flex;
-    width: calc(100% * 20); /* 10 images × 2 (duplicated) = 20 */
+    width: calc(100% * 20);
     height: 100%;
     animation: scroll-gallery 50s linear infinite;
+    will-change: transform;
 }
 
 .gallery-slide {
@@ -169,23 +233,30 @@ button, a {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%); /* Move half the total width (one set of 10 images) */
+        transform: translateX(-50%);
     }
 }
 
-/* Pause on hover */
-.gallery-slider:hover .gallery-track {
-    animation-play-state: paused;
+/* Pause on hover - disable on touch devices */
+@media (hover: hover) {
+    .gallery-slider:hover .gallery-track {
+        animation-play-state: paused;
+    }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .gallery-track {
-        animation-duration: 35s; /* Faster on mobile */
+    .gallery-slider {
+        height: 70vh;
     }
     
     .gallery-slide {
         width: 100vw;
+        height: 70vh;
+    }
+    
+    .gallery-track {
+        animation-duration: 30s;
     }
 }
 
@@ -206,4 +277,173 @@ button, a {
     );
     pointer-events: none;
     z-index: 5;
+}
+
+@media (max-width: 768px) {
+    .gallery-slider::after {
+        background: linear-gradient(
+            90deg,
+            rgba(28, 25, 23, 0.3) 0%,
+            transparent 10%,
+            transparent 90%,
+            rgba(28, 25, 23, 0.3) 100%
+        );
+    }
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: #92400e;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: #78350f;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Loading Skeleton */
+.skeleton {
+    background: linear-gradient(90deg, #e7e5e4 25%, #d6d3d1 50%, #e7e5e4 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Mobile Menu Improvements */
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#mobile-menu {
+    transition: transform 0.3s ease;
+}
+
+#mobile-menu.hidden {
+    transform: translateY(-10px);
+}
+
+/* Form Improvements */
+input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    -webkit-appearance: auto;
+    appearance: auto;
+}
+
+/* Better placeholder styling */
+::placeholder {
+    color: #a8a29e;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #a8a29e;
+}
+
+::-ms-input-placeholder {
+    color: #a8a29e;
+}
+
+/* Image aspect ratio containers */
+.aspect-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.aspect-container img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Prevent layout shift */
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Print Styles */
+@media print {
+    .scroll-to-top,
+    nav,
+    #mobile-menu,
+    .mobile-menu-overlay {
+        display: none !important;
+    }
+    
+    .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    body {
+        color: #000;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    a:focus-visible, button:focus-visible {
+        outline: 3px solid currentColor;
+    }
 }

@@ -1,0 +1,258 @@
+/* Catalogue Page Specific Styles */
+
+/* Modal Transitions */
+[id$="-modal"] {
+    transition: opacity 0.3s ease;
+}
+
+[id$="-modal"].hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+[id$="-modal"]:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Form Section Transitions */
+#options-section,
+#catalogue-content,
+#request-form-section {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#options-section.hidden,
+#catalogue-content.hidden,
+#request-form-section.hidden {
+    display: none;
+}
+
+/* Password Input Focus */
+#catalogue-password:focus {
+    box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.1);
+}
+
+/* Form Input Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    transition: all 0.3s ease;
+    font-size: 16px; /* Prevents iOS zoom */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.1);
+}
+
+/* Option Cards Hover Effect - Desktop only */
+@media (hover: hover) {
+    #options-section .bg-white {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #options-section .bg-white:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* Active state for touch */
+#options-section .bg-white:active {
+    transform: scale(0.98);
+}
+
+/* Submit Button Loading State */
+button[type="submit"].loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+button[type="submit"].loading svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Success Animation */
+#form-success .bg-green-100 {
+    animation: scale-in 0.3s ease;
+}
+
+@keyframes scale-in {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Empty State Icon */
+.catalogue-empty-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #options-section .grid {
+        gap: 1.5rem;
+    }
+    
+    #options-section .bg-white {
+        padding: 1.5rem;
+    }
+    
+    #request-form-section .bg-white {
+        padding: 1.5rem;
+    }
+    
+    /* Better modal positioning on mobile */
+    [id$="-modal"] > div {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+    
+    /* Touch-friendly form elements */
+    input, textarea, select, button {
+        min-height: 48px;
+    }
+    
+    /* Larger touch targets for buttons */
+    .touch-target {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #options-section .bg-white {
+        padding: 1.25rem;
+    }
+    
+    /* Stack buttons on very small screens */
+    #options-section button,
+    #request-form-section button {
+        width: 100%;
+    }
+}
+
+/* Touch-friendly buttons on mobile */
+@media (max-width: 768px) {
+    button, 
+    a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Better tap targets for interactive elements */
+    .touch-target {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Form Validation Styles */
+input:invalid:not(:placeholder-shown) {
+    border-color: #dc2626;
+}
+
+input:valid:not(:placeholder-shown) {
+    border-color: #16a34a;
+}
+
+/* Error Message Animation */
+#password-error {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Drag and Drop Active State */
+.drag-active {
+    border-color: #92400e !important;
+    background: #fff7ed !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .catalogue-empty-icon,
+    button[type="submit"].loading svg,
+    #form-success .bg-green-100,
+    #password-error {
+        animation: none !important;
+    }
+    
+    [id$="-modal"] {
+        transition: none !important;
+    }
+}
+
+/* Focus styles for accessibility */
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #92400e;
+    outline-offset: 2px;
+}
+
+/* Prevent text selection on buttons */
+button {
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+/* Loading state for images */
+img {
+    background: linear-gradient(90deg, #e7e5e4 25%, #d6d3d1 50%, #e7e5e4 75%);
+    background-size: 200% 100%;
+}
+
+img[src] {
+    background: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    input, textarea {
+        border-width: 2px;
+    }
+    
+    button {
+        border-width: 2px;
+    }
+}
+
+/* iOS input optimization */
+@supports (-webkit-touch-callout: none) {
+    input, textarea {
+        font-size: 16px !important;
+    }
+}
