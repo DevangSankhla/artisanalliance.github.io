@@ -27,6 +27,11 @@ function debounce(func, wait) {
 const navbar = document.getElementById('navbar');
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
+const navBrandText = document.getElementById('nav-brand-text');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// Check if we're on the home page (has hero gallery)
+const isHomePage = document.querySelector('.gallery-slider') !== null;
 
 // Navigation Scroll Effect with throttling
 let lastScrollY = window.scrollY;
@@ -39,10 +44,42 @@ function updateNavbar() {
         navbar.classList.add('nav-scrolled');
         navbar.classList.remove('py-4', 'md:py-5', 'py-6');
         navbar.classList.add('py-3');
+        
+        // Change text colors to dark when scrolled (for home page)
+        if (isHomePage) {
+            if (navBrandText) {
+                navBrandText.classList.remove('text-stone-100');
+                navBrandText.classList.add('text-stone-800');
+            }
+            navLinks.forEach(link => {
+                link.classList.remove('text-stone-100', 'hover:text-amber-400');
+                link.classList.add('text-stone-800', 'hover:text-amber-900');
+            });
+            if (mobileMenuBtn) {
+                mobileMenuBtn.classList.remove('text-stone-100');
+                mobileMenuBtn.classList.add('text-stone-800');
+            }
+        }
     } else {
         navbar.classList.remove('nav-scrolled');
         navbar.classList.remove('py-3');
         navbar.classList.add('py-4', 'md:py-5');
+        
+        // Change text colors back to white when at top (for home page)
+        if (isHomePage) {
+            if (navBrandText) {
+                navBrandText.classList.remove('text-stone-800');
+                navBrandText.classList.add('text-stone-100');
+            }
+            navLinks.forEach(link => {
+                link.classList.remove('text-stone-800', 'hover:text-amber-900');
+                link.classList.add('text-stone-100', 'hover:text-amber-400');
+            });
+            if (mobileMenuBtn) {
+                mobileMenuBtn.classList.remove('text-stone-800');
+                mobileMenuBtn.classList.add('text-stone-100');
+            }
+        }
     }
     
     // Hide/show navbar on scroll direction (mobile)
