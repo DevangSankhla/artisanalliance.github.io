@@ -10,13 +10,62 @@ const catalogueApp = {
         this.setupMobileOptimizations();
     },
 
-    // Check if user is already logged in (session storage)
+    // Check if user is already logged in (session or local storage)
     checkLoginStatus() {
-        const loggedIn = sessionStorage.getItem('catalogueLoggedIn');
-        if (loggedIn === 'true') {
+        const sessionLoggedIn = sessionStorage.getItem('catalogueLoggedIn');
+        const localLoggedIn = localStorage.getItem('catalogueLoggedIn');
+        const expiry = localStorage.getItem('catalogueLoginExpiry');
+        
+        // Check if localStorage login is still valid
+        const isLocalValid = localLoggedIn === 'true' && expiry && new Date().getTime() < parseInt(expiry);
+        
+        if (sessionLoggedIn === 'true' || isLocalValid) {
             this.isLoggedIn = true;
             this.showCatalogue();
+            
+            // Setup session timeout warning if using localStorage
+            if (isLocalValid) {
+                this.setupSessionTimeout();
+            }
+        } else {
+            // Clear expired localStorage
+            localStorage.removeItem('catalogueLoggedIn');
+            localStorage.removeItem('catalogueLoginExpiry');
         }
+    },
+    
+    // Setup session timeout warning
+    setupSessionTimeout() {
+        const expiry = localStorage.getItem('catalogueLoginExpiry');
+        if (!expiry) return;
+        
+        const timeUntilExpiry = parseInt(expiry) - new Date().getTime();
+        const warningTime = 5 * 60 * 1000; // 5 minutes before expiry
+        
+        if (timeUntilExpiry > warningTime) {
+            setTimeout(() => {
+                if (typeof Toast !== 'undefined') {
+                    Toast.show('Your session will expire in 5 minutes. Please save any changes.', 'warning', 10000);
+                }
+            }, timeUntilExpiry - warningTime);
+        }
+        
+        // Auto logout at expiry
+        setTimeout(() => {
+            this.logout();
+            if (typeof Toast !== 'undefined') {
+                Toast.show('Your session has expired. Please log in again.', 'info');
+            }
+        }, timeUntilExpiry);
+    },
+    
+    // Logout
+    logout() {
+        this.isLoggedIn = false;
+        sessionStorage.removeItem('catalogueLoggedIn');
+        localStorage.removeItem('catalogueLoggedIn');
+        localStorage.removeItem('catalogueLoginExpiry');
+        location.reload();
     },
 
     // Mobile-specific optimizations
@@ -81,15 +130,32 @@ const catalogueApp = {
     verifyPassword() {
         const passwordInput = document.getElementById('catalogue-password');
         const errorEl = document.getElementById('password-error');
+        const rememberMe = document.getElementById('remember-catalogue')?.checked;
         const enteredPassword = passwordInput.value.trim();
 
         if (enteredPassword === this.CORRECT_PASSWORD) {
             this.isLoggedIn = true;
-            sessionStorage.setItem('catalogueLoggedIn', 'true');
+            
+            // Store based on remember me preference
+            if (rememberMe) {
+                // Store for 7 days
+                const expiry = new Date().getTime() + (7 * 24 * 60 * 60 * 1000);
+                localStorage.setItem('catalogueLoggedIn', 'true');
+                localStorage.setItem('catalogueLoginExpiry', expiry.toString());
+                this.setupSessionTimeout();
+            } else {
+                // Store for session only
+                sessionStorage.setItem('catalogueLoggedIn', 'true');
+            }
+            
             errorEl.classList.add('hidden');
             passwordInput.value = '';
             this.closeModal('password-modal');
             this.showCatalogue();
+            
+            if (typeof Toast !== 'undefined') {
+                Toast.show('Successfully logged in!', 'success');
+            }
         } else {
             errorEl.classList.remove('hidden');
             passwordInput.value = '';
