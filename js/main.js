@@ -222,9 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     try {
-        // Coordinates for Boranada Industrial Area, Jodhpur
-        const lat = 26.2389;
-        const lng = 73.0243;
+        // Coordinates for Artisan Alliance - Boranada Industrial Area, Jodhpur
+        const lat = 26.1757775;
+        const lng = 72.9224947;
         
         const map = L.map('map', {
             scrollWheelZoom: false,
