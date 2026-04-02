@@ -447,3 +447,47 @@ img {
         outline: 3px solid currentColor;
     }
 }
+
+/* Touch Ripple Effect */
+button, a {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Safe area padding for mobile bottom nav */
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Bottom nav active state */
+nav.fixed.bottom-0 a.text-amber-600 {
+    position: relative;
+}
+
+nav.fixed.bottom-0 a.text-amber-600::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: #92400e;
+    border-radius: 50%;
+}
