@@ -33,11 +33,15 @@ const navLinks = document.querySelectorAll('.nav-link');
 // Check if we're on the home page (has hero gallery)
 const isHomePage = document.querySelector('.gallery-slider') !== null;
 
+// Debug logging
+console.log('Main.js loaded', { isHomePage, navbar: !!navbar, mobileMenuBtn: !!mobileMenuBtn, mobileMenu: !!mobileMenu });
+
 // Navigation Scroll Effect with throttling
 let lastScrollY = window.scrollY;
 let ticking = false;
 
 function updateNavbar() {
+    if (!navbar) return;
     const scrollY = window.scrollY;
     
     if (scrollY > 50) {
@@ -102,6 +106,11 @@ window.addEventListener('scroll', () => {
     }
 }, { passive: true });
 
+// Initial navbar state on page load
+document.addEventListener('DOMContentLoaded', () => {
+    updateNavbar();
+});
+
 // Mobile Menu Toggle with overlay
 let menuOverlay = null;
 
@@ -138,7 +147,10 @@ function closeMobileMenu() {
 }
 
 if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
+    console.log('Mobile menu initialized');
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (mobileMenu.classList.contains('hidden')) {
             openMobileMenu();
         } else {
@@ -157,6 +169,8 @@ if (mobileMenuBtn && mobileMenu) {
             closeMobileMenu();
         }
     });
+} else {
+    console.warn('Mobile menu elements not found', { mobileMenuBtn: !!mobileMenuBtn, mobileMenu: !!mobileMenu });
 }
 
 // Intersection Observer for Scroll Animations with better performance
@@ -187,7 +201,9 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    console.log('Reveal elements found:', revealElements.length);
+    revealElements.forEach((el) => {
         observer.observe(el);
     });
 });
@@ -195,7 +211,15 @@ document.addEventListener('DOMContentLoaded', () => {
 // Initialize Leaflet Map with error handling
 document.addEventListener('DOMContentLoaded', () => {
     const mapElement = document.getElementById('map');
-    if (!mapElement || typeof L === 'undefined') return;
+    if (!mapElement) {
+        console.log('Map element not found on this page');
+        return;
+    }
+    if (typeof L === 'undefined') {
+        console.warn('Leaflet library not loaded');
+        mapElement.innerHTML = '<div class="flex items-center justify-center h-full text-stone-500">Map library loading...</div>';
+        return;
+    }
     
     try {
         // Coordinates for Boranada Industrial Area, Jodhpur

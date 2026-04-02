@@ -20,13 +20,31 @@
     <meta name="theme-color" content="#92400e">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwindcss.js"></script>
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/catalogue.css">
+    
+    <!-- File Protocol Warning -->
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('⚠️ Please use a local server!\n\nThis website needs to be served via HTTP (localhost), not opened directly from the file system.\n\nRun: python3 -m http.server 8000\nThen open: http://localhost:8000');
+        }
+    </script>
 </head>
 <body class="bg-stone-50 text-stone-800">
+    <!-- File Protocol Warning Banner -->
+    <div id="file-protocol-warning" style="display:none; background:#dc2626; color:white; padding:1rem; text-align:center; font-family:system-ui,sans-serif;">
+        ⚠️ <strong>Wrong way to open this website!</strong> You're using file:// protocol. 
+        Please run: <code style="background:rgba(0,0,0,0.3); padding:0.2rem 0.5rem; border-radius:4px;">python3 -m http.server 8000</code> 
+        then open <code style="background:rgba(0,0,0,0.3); padding:0.2rem 0.5rem; border-radius:4px;">http://localhost:8000</code>
+    </div>
+    <script>
+        if (window.location.protocol === 'file:') {
+            document.getElementById('file-protocol-warning').style.display = 'block';
+        }
+    </script>
     
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 ease-in-out py-3 md:py-4 bg-stone-50/95 backdrop-blur-sm shadow-sm">
