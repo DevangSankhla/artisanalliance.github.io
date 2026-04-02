@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Artisan Alliance</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Return to Artisan Alliance homepage.">
+    <meta name="robots" content="noindex">
+    
+    <!-- Tailwind CSS -->
+    <script src="js/tailwindcss.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        h1, h2, .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+    </style>
+</head>
+<body class="bg-stone-900 text-stone-100 min-h-screen flex items-center justify-center">
+    <div class="text-center px-4 max-w-2xl">
+        <div class="text-8xl md:text-9xl font-serif text-amber-500 mb-4">404</div>
+        <h1 class="text-3xl md:text-5xl font-serif mb-6">Page Not Found</h1>
+        <p class="text-stone-400 text-lg mb-8 max-w-md mx-auto">
+            The page you're looking for doesn't exist or has been moved. 
+            Let us help you find your way back.
+        </p>
+        
+        <div class="space-y-4">
+            <a href="index.html" class="inline-flex items-center justify-center px-8 py-4 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                Return Home
+            </a>
+        </div>
+        
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <a href="about.html" class="text-stone-400 hover:text-amber-400 transition-colors">About Us</a>
+            <a href="gallery.html" class="text-stone-400 hover:text-amber-400 transition-colors">Gallery</a>
+            <a href="catalogue.html" class="text-stone-400 hover:text-amber-400 transition-colors">Catalogue</a>
+            <a href="index.html#contact" class="text-stone-400 hover:text-amber-400 transition-colors">Contact</a>
+        </div>
+        
+        <div class="mt-12 pt-8 border-t border-stone-800">
+            <img src="assets/logo.png" alt="Artisan Alliance Logo" class="h-12 mx-auto mb-4 brightness-0 invert opacity-50">
+            <p class="text-stone-500 text-sm">© 2026 Artisan Alliance. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

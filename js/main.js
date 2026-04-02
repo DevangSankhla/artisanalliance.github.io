@@ -612,3 +612,113 @@ document.querySelectorAll('button, a').forEach(btn => {
     fab.setAttribute('rel', 'noopener noreferrer');
     document.body.appendChild(fab);
 })();
+
+// Keyboard Navigation for Modals and Gallery
+(function setupKeyboardNavigation() {
+    // Close modals on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const modals = document.querySelectorAll('[id$="-modal"], #lightbox');
+            modals.forEach(modal => {
+                if (!modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    });
+    
+    // Arrow key navigation for gallery lightbox
+    document.addEventListener('keydown', (e) => {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+            if (e.key === 'ArrowRight') {
+                // Trigger next image
+                const nextBtn = lightbox.querySelector('[onclick*="nextImage"]');
+                if (nextBtn) nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                // Trigger previous image
+                const prevBtn = lightbox.querySelector('[onclick*="prevImage"]');
+                if (prevBtn) prevBtn.click();
+            }
+        }
+    });
+    
+    // Focus trap for modals
+    document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+        modal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstFocusable = focusableElements[0];
+                const lastFocusable = focusableElements[focusableElements.length - 1];
+                
+                if (e.shiftKey && document.activeElement === firstFocusable) {
+                    e.preventDefault();
+                    lastFocusable.focus();
+                } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+                    e.preventDefault();
+                    firstFocusable.focus();
+                }
+            }
+        });
+    });
+})();
+
+// Get Directions Button for Map
+(function addDirectionsButton() {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) return;
+    
+    const directionsBtn = document.createElement('a');
+    directionsBtn.href = 'https://www.google.com/maps/dir//Artisan+Alliance,+Boranada,+Jodhpur,+Rajasthan+342012';
+    directionsBtn.target = '_blank';
+    directionsBtn.className = 'absolute bottom-4 right-4 bg-white px-4 py-2 rounded-sm shadow-lg text-amber-900 font-medium text-sm z-[400] hover:bg-stone-50 transition-colors flex items-center space-x-2';
+    directionsBtn.innerHTML = `
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <span>Get Directions</span>
+    `;
+    
+    mapElement.style.position = 'relative';
+    mapElement.appendChild(directionsBtn);
+})();
+
+// Business Hours Status Indicator
+(function showBusinessHoursStatus() {
+    const hoursElements = document.querySelectorAll('.business-hours');
+    if (hoursElements.length === 0) return;
+    
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+    const hour = now.getHours();
+    
+    // Monday-Saturday, 9 AM - 6 PM IST
+    const isOpen = day >= 1 && day <= 6 && hour >= 9 && hour < 18;
+    
+    hoursElements.forEach(el => {
+        const badge = document.createElement('span');
+        badge.className = `ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${isOpen ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+        badge.textContent = isOpen ? 'Open Now' : 'Closed';
+        el.appendChild(badge);
+    });
+})();
+
+// Copy to Clipboard functionality
+function setupCopyButtons() {
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const text = btn.dataset.copy;
+            navigator.clipboard.writeText(text).then(() => {
+                const original = btn.innerHTML;
+                btn.innerHTML = 'Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                }, 2000);
+            });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', setupCopyButtons);
