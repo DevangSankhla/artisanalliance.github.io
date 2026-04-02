@@ -43,25 +43,40 @@ let ticking = false;
 function updateNavbar() {
     if (!navbar) return;
     const scrollY = window.scrollY;
+    const isDark = document.documentElement.classList.contains('dark');
     
     if (scrollY > 50) {
         navbar.classList.add('nav-scrolled');
         navbar.classList.remove('py-4', 'md:py-5', 'py-6');
         navbar.classList.add('py-3');
         
-        // Change text colors to dark when scrolled (for home page)
+        // Change text colors when scrolled (for home page)
         if (isHomePage) {
-            if (navBrandText) {
-                navBrandText.classList.remove('text-stone-100');
-                navBrandText.classList.add('text-stone-800');
-            }
-            navLinks.forEach(link => {
-                link.classList.remove('text-stone-100', 'hover:text-amber-400');
-                link.classList.add('text-stone-800', 'hover:text-amber-900');
-            });
-            if (mobileMenuBtn) {
-                mobileMenuBtn.classList.remove('text-stone-100');
-                mobileMenuBtn.classList.add('text-stone-800');
+            if (isDark) {
+                // Dark mode: dark text on light scrolled nav
+                if (navBrandText) {
+                    navBrandText.classList.remove('text-stone-100');
+                    navBrandText.classList.add('text-stone-800');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('text-stone-100', 'hover:text-amber-400');
+                    link.classList.add('text-stone-800', 'hover:text-amber-900');
+                });
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.classList.remove('text-stone-100');
+                    mobileMenuBtn.classList.add('text-stone-800');
+                }
+            } else {
+                // Light mode: HTML classes already handle colors; clean up dark mode classes
+                if (navBrandText) {
+                    navBrandText.classList.remove('text-stone-100', 'text-stone-800');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('text-stone-100', 'text-stone-800', 'hover:text-amber-400', 'hover:text-amber-900');
+                });
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.classList.remove('text-stone-100', 'text-stone-800');
+                }
             }
         }
     } else {
@@ -69,19 +84,33 @@ function updateNavbar() {
         navbar.classList.remove('py-3');
         navbar.classList.add('py-4', 'md:py-5');
         
-        // Change text colors back to white when at top (for home page)
+        // Change text colors when at top (for home page)
         if (isHomePage) {
-            if (navBrandText) {
-                navBrandText.classList.remove('text-stone-800');
-                navBrandText.classList.add('text-stone-100');
-            }
-            navLinks.forEach(link => {
-                link.classList.remove('text-stone-800', 'hover:text-amber-900');
-                link.classList.add('text-stone-100', 'hover:text-amber-400');
-            });
-            if (mobileMenuBtn) {
-                mobileMenuBtn.classList.remove('text-stone-800');
-                mobileMenuBtn.classList.add('text-stone-100');
+            if (isDark) {
+                // Dark mode: white text on transparent nav over dark hero
+                if (navBrandText) {
+                    navBrandText.classList.remove('text-stone-800');
+                    navBrandText.classList.add('text-stone-100');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('text-stone-800', 'hover:text-amber-900');
+                    link.classList.add('text-stone-100', 'hover:text-amber-400');
+                });
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.classList.remove('text-stone-800');
+                    mobileMenuBtn.classList.add('text-stone-100');
+                }
+            } else {
+                // Light mode: HTML classes already handle colors; clean up dark mode classes
+                if (navBrandText) {
+                    navBrandText.classList.remove('text-stone-800', 'text-stone-100');
+                }
+                navLinks.forEach(link => {
+                    link.classList.remove('text-stone-800', 'text-stone-100', 'hover:text-amber-400', 'hover:text-amber-900');
+                });
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.classList.remove('text-stone-800', 'text-stone-100');
+                }
             }
         }
     }
@@ -109,6 +138,9 @@ window.addEventListener('scroll', () => {
 // Initial navbar state on page load
 document.addEventListener('DOMContentLoaded', () => {
     updateNavbar();
+    
+    // Expose for theme toggle
+    window.updateNavbar = updateNavbar;
 });
 
 // Mobile Menu Toggle with overlay
