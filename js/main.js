@@ -343,23 +343,47 @@ function initScrollToTop() {
 // Initialize scroll to top button
 document.addEventListener('DOMContentLoaded', initScrollToTop);
 
-// Hero Slideshow
+// Gallery Auto-Scroll Enhancement with touch support
 document.addEventListener('DOMContentLoaded', () => {
-    const slideshowImages = document.querySelectorAll('.slideshow-image');
+    const galleryTrack = document.getElementById('galleryTrack');
+    const gallerySlider = document.querySelector('.gallery-slider');
     
-    if (slideshowImages.length > 0) {
-        let currentSlide = 0;
-        const slideInterval = 5000; // 5 seconds per slide
-        
-        function nextSlide() {
-            slideshowImages[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slideshowImages.length;
-            slideshowImages[currentSlide].classList.add('active');
+    if (!galleryTrack || !gallerySlider) return;
+    
+    let isHovered = false;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // Mouse interactions
+    gallerySlider.addEventListener('mouseenter', () => {
+        isHovered = true;
+        galleryTrack.style.animationPlayState = 'paused';
+    });
+    
+    gallerySlider.addEventListener('mouseleave', () => {
+        isHovered = false;
+        galleryTrack.style.animationPlayState = 'running';
+    });
+    
+    // Touch interactions for mobile swipe
+    gallerySlider.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        galleryTrack.style.animationPlayState = 'paused';
+    }, { passive: true });
+    
+    gallerySlider.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        galleryTrack.style.animationPlayState = 'running';
+    }, { passive: true });
+    
+    // Pause when tab is not visible (performance)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            galleryTrack.style.animationPlayState = 'paused';
+        } else if (!isHovered) {
+            galleryTrack.style.animationPlayState = 'running';
         }
-        
-        // Start slideshow after initial load
-        setInterval(nextSlide, slideInterval);
-    }
+    });
 });
 
 // Image Loading Optimization
