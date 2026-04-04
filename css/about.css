@@ -235,7 +235,7 @@ img[src] {
 .gallery-slider {
     position: relative;
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -249,7 +249,7 @@ img[src] {
 
 .gallery-slide {
     width: 100vw;
-    height: 70vh;
+    height: 100vh;
     flex-shrink: 0;
     position: relative;
 }
@@ -281,12 +281,12 @@ img[src] {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .gallery-slider {
-        height: 70svh;
+        height: 100svh;
     }
     
     .gallery-slide {
         width: 100vw;
-        height: 70svh;
+        height: 100svh;
     }
     
     .gallery-track {
