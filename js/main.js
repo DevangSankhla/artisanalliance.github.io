@@ -343,6 +343,25 @@ function initScrollToTop() {
 // Initialize scroll to top button
 document.addEventListener('DOMContentLoaded', initScrollToTop);
 
+// Hero Slideshow
+document.addEventListener('DOMContentLoaded', () => {
+    const slideshowImages = document.querySelectorAll('.slideshow-image');
+    
+    if (slideshowImages.length > 0) {
+        let currentSlide = 0;
+        const slideInterval = 5000; // 5 seconds per slide
+        
+        function nextSlide() {
+            slideshowImages[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slideshowImages.length;
+            slideshowImages[currentSlide].classList.add('active');
+        }
+        
+        // Start slideshow after initial load
+        setInterval(nextSlide, slideInterval);
+    }
+});
+
 // Image Loading Optimization
 document.addEventListener('DOMContentLoaded', () => {
     // Preload critical images

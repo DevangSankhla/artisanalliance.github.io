@@ -163,9 +163,16 @@
     </nav>
    <!-- Hero Section -->
 <section id="main-content" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-stone-900">
-    <!-- Static Background Image -->
-    <div class="absolute inset-0 z-0">
-        <img src="assets/gallery/image-01.jpg" alt="Artisan Alliance Furniture" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
+    <!-- Optimized Slideshow Background -->
+    <div class="absolute inset-0 z-0" id="hero-slideshow">
+        <div class="slideshow-container">
+            <img src="assets/gallery/image-01.jpg" alt="Artisan Alliance Furniture 1" class="slideshow-image active" loading="eager" decoding="async" fetchpriority="high">
+            <img src="assets/gallery/image-02.jpg" alt="Artisan Alliance Furniture 2" class="slideshow-image" loading="lazy" decoding="async">
+            <img src="assets/gallery/image-03.jpg" alt="Artisan Alliance Furniture 3" class="slideshow-image" loading="lazy" decoding="async">
+            <img src="assets/gallery/image-04.jpg" alt="Artisan Alliance Furniture 4" class="slideshow-image" loading="lazy" decoding="async">
+            <img src="assets/gallery/image-05.jpg" alt="Artisan Alliance Furniture 5" class="slideshow-image" loading="lazy" decoding="async">
+            <img src="assets/gallery/image-06.jpg" alt="Artisan Alliance Furniture 6" class="slideshow-image" loading="lazy" decoding="async">
+        </div>
         <!-- Dark overlay for text readability -->
         <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80 z-10"></div>
     </div>

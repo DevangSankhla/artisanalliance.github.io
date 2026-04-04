@@ -197,6 +197,30 @@ button, a {
     }
 }
 
+/* Hero Slideshow Styles */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slideshow-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    will-change: opacity;
+}
+
+.slideshow-image.active {
+    opacity: 1;
+}
+
 /* Hero Section Image Optimization */
 #main-content img {
     image-rendering: -webkit-optimize-contrast;
