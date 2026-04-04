@@ -197,7 +197,7 @@ button, a {
     }
 }
 
-/* Gallery Slider Styles */
+/* Gallery Slider Styles - Used on About Page */
 .gallery-slider {
     position: relative;
     width: 100%;
@@ -207,9 +207,9 @@ button, a {
 
 .gallery-track {
     display: flex;
-    width: calc(100% * 12);
+    width: calc(100% * 10); /* 5 images × 2 (duplicate for seamless loop) */
     height: 100%;
-    animation: scroll-gallery 40s linear infinite;
+    animation: scroll-gallery 35s linear infinite;
     will-change: transform;
 }
 
@@ -256,7 +256,7 @@ button, a {
     }
     
     .gallery-track {
-        animation-duration: 30s;
+        animation-duration: 25s;
     }
 }
 

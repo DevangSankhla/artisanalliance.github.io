@@ -321,6 +321,21 @@ const catalogueApp = {
                 
                 // Validate before submitting
                 const email = form.querySelector('#user-email').value;
+                const name = form.querySelector('#user-name').value.trim();
+                const firm = form.querySelector('#firm-name').value.trim();
+                
+                if (!name) {
+                    alert('Please enter your name');
+                    form.querySelector('#user-name').focus();
+                    return;
+                }
+                
+                if (!firm) {
+                    alert('Please enter your company name');
+                    form.querySelector('#firm-name').focus();
+                    return;
+                }
+                
                 if (!this.isValidEmail(email)) {
                     alert('Please enter a valid email address');
                     form.querySelector('#user-email').focus();
@@ -354,16 +369,28 @@ const catalogueApp = {
                         document.getElementById('form-success').classList.remove('hidden');
                         form.reset();
                         
+                        // Clear saved draft
+                        sessionStorage.removeItem('catalogueFormDraft');
+                        
                         // Scroll to success message on mobile
                         if (window.innerWidth <= 768) {
                             document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
                     } else {
-                        throw new Error('Form submission failed');
+                        const errorData = await response.json().catch(() => null);
+                        console.error('Formspree error:', errorData);
+                        
+                        if (response.status === 403) {
+                            throw new Error('Form not configured. Please email us directly at arvind@artisanalliance.in');
+                        } else if (response.status === 422) {
+                            throw new Error('Invalid form data. Please check all fields.');
+                        } else {
+                            throw new Error('Server error. Please try again later.');
+                        }
                     }
                 } catch (error) {
                     console.error('Error submitting form:', error);
-                    alert('There was an error sending your request. Please try again or email us directly at arvind@artisanalliance.in');
+                    alert(error.message || 'There was an error sending your request. Please email us directly at arvind@artisanalliance.in');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.classList.remove('loading');

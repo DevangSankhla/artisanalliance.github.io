@@ -1,3 +1,60 @@
+// Simple Toast Notification System
+const Toast = {
+    container: null,
+    
+    init() {
+        if (this.container) return;
+        this.container = document.createElement('div');
+        this.container.className = 'toast-container';
+        this.container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        `;
+        document.body.appendChild(this.container);
+    },
+    
+    show(message, type = 'info', duration = 3000) {
+        this.init();
+        
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            background: ${type === 'success' ? '#16a34a' : type === 'warning' ? '#d97706' : '#92400e'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+            max-width: 300px;
+            word-wrap: break-word;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        `;
+        
+        const icon = type === 'success' ? '✓' : type === 'warning' ? '⚠' : 'ℹ';
+        toast.innerHTML = `<span style="font-weight: bold;">${icon}</span> ${message}`;
+        
+        this.container.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => toast.style.transform = 'translateX(0)', 10);
+        
+        // Remove after duration
+        setTimeout(() => {
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+};
+
 // Utility: Throttle function for performance
 function throttle(func, limit) {
     let inThrottle;
