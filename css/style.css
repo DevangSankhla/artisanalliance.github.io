@@ -432,15 +432,10 @@ img {
     max-width: 100%;
 }
 
-/* Image loading optimization */
-img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
-}
-
-img[loading="lazy"].loaded,
-img[loading="eager"] {
+/* Image loading optimization - images visible by default */
+img {
     opacity: 1;
+    transition: opacity 0.3s ease-in;
 }
 
 img.img-error {
