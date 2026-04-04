@@ -87,12 +87,47 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Slideshow -->
     <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-stone-900">
-        <!-- Background Image with Overlay -->
+        <!-- Auto-Scrolling Gallery Background -->
         <div class="absolute inset-0 z-0">
-            <img src="assets/gallery/image-01.jpg" alt="Artisan craftsmanship" class="w-full h-full object-cover opacity-40" loading="eager" decoding="async" fetchpriority="high">
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/80 to-stone-900/90"></div>
+            <div class="gallery-slider">
+                <div class="gallery-track" id="galleryTrack">
+                    <!-- First set of 5 images (02-06) -->
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-02.jpg" alt="Artisan Alliance Furniture 2" class="w-full h-full object-cover" loading="eager" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-03.jpg" alt="Artisan Alliance Furniture 3" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-04.jpg" alt="Artisan Alliance Furniture 4" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-05.jpg" alt="Artisan Alliance Furniture 5" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-06.jpg" alt="Artisan Alliance Furniture 6" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <!-- Duplicate set for seamless infinite scroll -->
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-02.jpg" alt="Artisan Alliance Furniture 2" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-03.jpg" alt="Artisan Alliance Furniture 3" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-04.jpg" alt="Artisan Alliance Furniture 4" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-05.jpg" alt="Artisan Alliance Furniture 5" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="assets/gallery/image-06.jpg" alt="Artisan Alliance Furniture 6" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-900/60 via-stone-900/80 to-stone-900/90 z-10"></div>
         </div>
         
         <div class="relative z-20 container mx-auto px-4 md:px-6 text-center pt-20">
