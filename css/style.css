@@ -197,97 +197,44 @@ button, a {
     }
 }
 
-/* Gallery Slider Styles */
-.gallery-slider {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+/* Hero Section Image Optimization */
+#main-content img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
-.gallery-track {
-    display: flex;
-    width: calc(100% * 20);
-    height: 100%;
-    animation: scroll-gallery 50s linear infinite;
-    will-change: transform;
-}
-
-.gallery-slide {
-    width: 100vw;
-    height: 100vh;
-    flex-shrink: 0;
-    position: relative;
-}
-
-.gallery-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-/* Smooth infinite scroll animation */
-@keyframes scroll-gallery {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* Pause on hover - disable on touch devices */
-@media (hover: hover) {
-    .gallery-slider:hover .gallery-track {
-        animation-play-state: paused;
-    }
-}
-
-/* Responsive adjustments */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
-    .gallery-slider {
-        height: 70vh;
+    /* Hero section height adjustment */
+    #main-content {
+        min-height: 100svh; /* Use small viewport height for mobile */
     }
     
-    .gallery-slide {
-        width: 100vw;
-        height: 70vh;
+    /* Improve touch targets */
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
     }
     
-    .gallery-track {
-        animation-duration: 30s;
+    /* Better text readability on mobile */
+    h1 {
+        font-size: 2.25rem !important;
+        line-height: 1.2 !important;
     }
-}
-
-/* Gallery overlay enhancement */
-.gallery-slider::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(28, 25, 23, 0.4) 0%,
-        transparent 20%,
-        transparent 80%,
-        rgba(28, 25, 23, 0.4) 100%
-    );
-    pointer-events: none;
-    z-index: 5;
-}
-
-@media (max-width: 768px) {
-    .gallery-slider::after {
-        background: linear-gradient(
-            90deg,
-            rgba(28, 25, 23, 0.3) 0%,
-            transparent 10%,
-            transparent 90%,
-            rgba(28, 25, 23, 0.3) 100%
-        );
+    
+    h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Improve tap highlight on mobile */
+    a, button {
+        -webkit-tap-highlight-color: rgba(146, 64, 14, 0.2);
+    }
+    
+    /* Better spacing for mobile */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
 
@@ -420,6 +367,43 @@ input[type="radio"] {
 img {
     height: auto;
     max-width: 100%;
+}
+
+/* Image loading optimization */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+img[loading="lazy"].loaded,
+img[loading="eager"] {
+    opacity: 1;
+}
+
+img.img-error {
+    opacity: 0.5;
+    background: linear-gradient(90deg, #e7e5e4 25%, #d6d3d1 50%, #e7e5e4 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+/* Footer logo specific fixes */
+footer img {
+    display: block;
+    max-height: 48px;
+}
+
+/* Mobile footer improvements */
+@media (max-width: 768px) {
+    footer .flex-col {
+        gap: 1rem;
+    }
+    
+    footer .space-x-6 {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
 }
 
 /* Print Styles */
