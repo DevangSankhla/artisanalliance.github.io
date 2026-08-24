@@ -6,7 +6,13 @@
 (function () {
   'use strict';
 
-  var state = { all: [], filtered: [], rooms: [], search: '', category: '' };
+  // `listings` holds one entry per catalogue tile: a single product, or the
+  // smallest member of a size/finish family that stands in for the whole family.
+  // `groupOf` maps every product id to its family (undefined when standalone).
+  var state = {
+    all: [], listings: [], filtered: [], rooms: [],
+    groupOf: {}, search: '', category: ''
+  };
 
   // ---- helpers ---------------------------------------------------------
   function $(id) { return document.getElementById(id); }
@@ -27,6 +33,111 @@
     );
   function imgSrc(src) { return src ? esc(src) : PLACEHOLDER; }
 
+  // ---- size / finish families -----------------------------------------
+  // Lower rank = shown first, and the lowest-ranked member represents the
+  // family in the grid. Anything unrecognised (a finish name such as
+  // "Dark Walnut") lands on OTHER_RANK and keeps its file order.
+  var OTHER_RANK = 500;
+  function variantRank(label) {
+    var s = String(label || '').toLowerCase();
+    if (/\b(?:set|pack)\s+of\b/.test(s)) {
+      var n = parseInt(s.replace(/\D+/g, ''), 10);
+      return 900 + (isNaN(n) ? 0 : n);
+    }
+    if (s.indexOf('small') !== -1) return 100;
+    if (s.indexOf('medium') !== -1) return 200 + (s.indexOf('alt') !== -1 ? 1 : 0);
+    if (s.indexOf('large') !== -1) return 300;
+    return OTHER_RANK;
+  }
+
+  // A product lists its siblings' labels but never its own, so a member's label
+  // is whatever its siblings call it. A few entries are only linked one way;
+  // fall back to reading a "Set of N" out of the name.
+  function fallbackLabel(p) {
+    var m = /\b(?:set|pack)\s+of\s+(\d+)/i.exec(p.name || '');
+    return m ? 'Set of ' + m[1] : 'Standard';
+  }
+
+  function buildGroups() {
+    var byId = {};
+    state.all.forEach(function (p) { byId[p.id] = p; });
+
+    // Union-find: relatedSizes edges stitch each family together.
+    var parent = {};
+    function find(x) {
+      if (parent[x] === undefined) parent[x] = x;
+      while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; }
+      return x;
+    }
+    function union(a, b) {
+      var ra = find(a), rb = find(b);
+      if (ra !== rb) parent[ra] = rb;
+    }
+
+    var ownLabel = {};
+    state.all.forEach(function (p) {
+      find(p.id);
+      (p.relatedSizes || []).forEach(function (r) {
+        if (!r || !byId[r.productId]) return;
+        union(p.id, r.productId);
+        if (!ownLabel[r.productId]) ownLabel[r.productId] = r.size;
+      });
+    });
+
+    var buckets = {};
+    state.all.forEach(function (p, i) {
+      var root = find(p.id);
+      (buckets[root] || (buckets[root] = [])).push({ product: p, index: i });
+    });
+
+    state.groupOf = {};
+    state.listings = [];
+
+    Object.keys(buckets).forEach(function (root) {
+      var rows = buckets[root];
+      var firstIndex = rows[0].index;
+
+      rows.forEach(function (row) {
+        row.label = ownLabel[row.product.id] || fallbackLabel(row.product);
+        row.rank = variantRank(row.label);
+        if (row.index < firstIndex) firstIndex = row.index;
+      });
+
+      // Smallest first; ties (finishes) keep the order they appear in the file.
+      rows.sort(function (a, b) { return (a.rank - b.rank) || (a.index - b.index); });
+
+      var members = rows.map(function (row) {
+        return { id: row.product.id, label: row.label, product: row.product };
+      });
+      var group = null;
+
+      if (members.length > 1) {
+        group = {
+          members: members,
+          // "Set of 3" is still a size choice; a bare finish name is not.
+          noun: rows.every(function (r) { return r.rank !== OTHER_RANK; }) ? 'sizes' : 'finishes'
+        };
+        members.forEach(function (m) { state.groupOf[m.id] = group; });
+      }
+
+      // Searching should surface a family via any of its members' text.
+      var haystack = members.map(function (m) {
+        return m.product.name + ' ' + (m.product.description || '') + ' ' +
+          (m.product.category || '') + ' ' + m.label;
+      }).join(' ').toLowerCase();
+
+      state.listings.push({
+        product: members[0].product,
+        group: group,
+        haystack: haystack,
+        order: firstIndex
+      });
+    });
+
+    // Keep the catalogue in products.json order.
+    state.listings.sort(function (a, b) { return a.order - b.order; });
+  }
+
   // ---- data load -------------------------------------------------------
   function load() {
     fetch('products.json', { cache: 'no-cache' })
@@ -37,6 +148,7 @@
       .then(function (data) {
         state.all = data.products || [];
         state.rooms = data.rooms || [];
+        buildGroups();
         buildCategoryOptions();
         applyFilters();
         var loading = $('products-loading');
@@ -56,8 +168,8 @@
     var sel = $('category-filter');
     if (!sel) return;
     var counts = {};
-    state.all.forEach(function (p) {
-      var c = p.category || 'Uncategorised';
+    state.listings.forEach(function (l) {
+      var c = l.product.category || 'Uncategorised';
       counts[c] = (counts[c] || 0) + 1;
     });
     Object.keys(counts).sort().forEach(function (c) {
@@ -71,11 +183,10 @@
   // ---- filtering + render ---------------------------------------------
   function applyFilters() {
     var q = state.search.trim().toLowerCase();
-    state.filtered = state.all.filter(function (p) {
-      if (state.category && (p.category || 'Uncategorised') !== state.category) return false;
+    state.filtered = state.listings.filter(function (l) {
+      if (state.category && (l.product.category || 'Uncategorised') !== state.category) return false;
       if (!q) return true;
-      var hay = (p.name + ' ' + (p.description || '') + ' ' + (p.category || '')).toLowerCase();
-      return hay.indexOf(q) !== -1;
+      return l.haystack.indexOf(q) !== -1;
     });
     renderGrid();
   }
@@ -87,7 +198,7 @@
     if (!grid) return;
 
     if (count) {
-      count.textContent = state.filtered.length + ' of ' + state.all.length + ' products';
+      count.textContent = state.filtered.length + ' of ' + state.listings.length + ' products';
     }
     if (!state.filtered.length) {
       grid.innerHTML = '';
@@ -96,7 +207,12 @@
     }
     if (empty) empty.classList.add('hidden');
 
-    grid.innerHTML = state.filtered.map(function (p) {
+    grid.innerHTML = state.filtered.map(function (l) {
+      var p = l.product;
+      var badge = l.group
+        ? '<span class="flex-shrink-0 text-[10px] uppercase tracking-wide bg-amber-50 text-amber-800 border border-amber-200 rounded-full px-2 py-0.5">' +
+            l.group.members.length + ' ' + l.group.noun + '</span>'
+        : '';
       return (
         '<article class="group bg-white rounded-sm border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer" ' +
           'data-id="' + esc(p.id) + '" onclick="productsApp.openDetail(\'' + esc(p.id) + '\')">' +
@@ -105,7 +221,10 @@
               'class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">' +
           '</div>' +
           '<div class="p-3 md:p-4 flex flex-col flex-1">' +
-            '<p class="text-xs uppercase tracking-wide text-amber-800/80 mb-1">' + esc(p.category || '') + '</p>' +
+            '<div class="flex items-start justify-between gap-2 mb-1">' +
+              '<p class="text-xs uppercase tracking-wide text-amber-800/80 truncate">' + esc(p.category || '') + '</p>' +
+              badge +
+            '</div>' +
             '<h3 class="font-serif text-stone-900 text-sm md:text-base leading-snug mb-3 line-clamp-2">' + esc(p.name) + '</h3>' +
             '<button onclick="event.stopPropagation(); productsApp.openQuote(\'' + esc(p.id) + '\')" ' +
               'class="mt-auto w-full py-2 text-sm bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-colors">' +
@@ -147,6 +266,30 @@
     return parts.join('  •  ');
   }
 
+  // Buttons that swap the modal between members of a size/finish family.
+  function variantToggle(p) {
+    var g = state.groupOf[p.id];
+    if (!g) return '';
+    var heading = g.noun === 'sizes' ? 'Select size' : 'Select finish';
+    var btns = g.members.map(function (m) {
+      var on = m.id === p.id;
+      return '<button type="button" onclick="productsApp.showVariant(\'' + esc(m.id) + '\')" ' +
+        'aria-pressed="' + (on ? 'true' : 'false') + '" ' +
+        'class="px-3 py-1.5 text-sm rounded-sm border transition-colors ' +
+        (on
+          ? 'bg-amber-900 text-stone-100 border-amber-900'
+          : 'bg-white text-stone-700 border-stone-300 hover:border-amber-700 hover:text-amber-900') +
+        '">' + esc(m.label) + '</button>';
+    }).join('');
+    return (
+      '<div class="mb-5 p-3 bg-stone-50 border border-stone-200 rounded-sm">' +
+        '<p class="text-xs uppercase tracking-wide text-stone-500 mb-2">' + esc(heading) + '</p>' +
+        '<div class="flex flex-wrap gap-2">' + btns + '</div>' +
+        '<p class="text-xs text-stone-500 mt-2">Photos, dimensions and specifications update with your selection.</p>' +
+      '</div>'
+    );
+  }
+
   function openDetail(id) {
     var p = state.all.find(function (x) { return x.id === id; });
     if (!p) return;
@@ -160,10 +303,6 @@
             (i === 0 ? 'border-amber-900' : 'border-stone-200') + '">' +
             '<img src="' + imgSrc(ph) + '" alt="" class="w-full h-full object-cover"></button>';
         }).join('') + '</div>'
-      : '';
-
-    var relatedSizes = (p.relatedSizes && p.relatedSizes.length)
-      ? specRow('Also available in', p.relatedSizes.map(function (r) { return r.size; }).join(', '))
       : '';
 
     var specs =
@@ -183,7 +322,7 @@
       specRow('Origin', d.origin) +
       specRow('Artisan', d.artisan) +
       specRow('Sustainability', d.sustainability) +
-      relatedSizes;
+      specRow('Item code', p.id);
 
     $('product-modal-content').innerHTML =
       '<button onclick="productsApp.closeDetail()" class="absolute top-3 right-3 z-10 bg-white/90 rounded-full p-2 text-stone-500 hover:text-stone-800 shadow" aria-label="Close">' +
@@ -195,10 +334,11 @@
             '<img id="detail-hero" src="' + imgSrc(photos[0]) + '" alt="' + esc(p.name) + '" class="w-full h-full object-cover">' +
           '</div>' + thumbs +
         '</div>' +
-        '<div class="p-4 md:p-6 md:pr-8 md:max-h-[85vh] md:overflow-y-auto">' +
+        '<div id="detail-pane" class="p-4 md:p-6 md:pr-8 md:max-h-[85vh] md:overflow-y-auto">' +
           '<p class="text-xs uppercase tracking-wide text-amber-800/80 mb-1">' + esc(p.category || '') + '</p>' +
           '<h2 class="text-2xl md:text-3xl font-serif text-stone-900 mb-3">' + esc(p.name) + '</h2>' +
           '<p class="text-stone-600 leading-relaxed mb-4">' + nl2br(p.description) + '</p>' +
+          variantToggle(p) +
           '<dl class="mb-6">' + specs + '</dl>' +
           '<button onclick="productsApp.openQuote(\'' + esc(p.id) + '\')" ' +
             'class="w-full py-3 bg-amber-900 text-stone-100 font-medium rounded-sm hover:bg-amber-800 transition-colors">' +
@@ -208,6 +348,15 @@
 
     $('product-modal').classList.remove('hidden');
     lockScroll(true);
+  }
+
+  // Swap to another member of the family, keeping the reader's scroll position.
+  function showVariant(id) {
+    var pane = $('detail-pane');
+    var offset = pane ? pane.scrollTop : 0;
+    openDetail(id);
+    var next = $('detail-pane');
+    if (next) next.scrollTop = offset;
   }
 
   function setHero(src) {
@@ -308,6 +457,7 @@
   // Public API used by inline handlers
   window.productsApp = {
     openDetail: openDetail,
+    showVariant: showVariant,
     closeDetail: closeDetail,
     setHero: setHero,
     openQuote: openQuote,

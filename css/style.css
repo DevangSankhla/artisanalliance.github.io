@@ -517,6 +517,20 @@ button, a {
     padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
+/* Keep the fixed bottom nav from covering the end of the page (footer social
+   icons, last cards, in-page anchors). The nav is a 4rem row plus the device
+   safe-area inset, so reserve exactly that much at the bottom of the document. */
+@media (max-width: 767px) {
+    body {
+        padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Anchor targets must clear the sticky top navbar as well as the bottom bar. */
+    :target {
+        scroll-margin-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+    }
+}
+
 /* Bottom nav active state */
 nav.fixed.bottom-0 a.text-amber-600 {
     position: relative;
